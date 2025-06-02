@@ -1,0 +1,45 @@
+
+// dataflow modelling
+module full_adder(input a ,b,cin , output Sum , Cout);
+     assign Sum= a^b^cin;
+     assign Cout =  (a&b) | (b&cin) | (cin&a);
+     endmodule
+
+
+// behavioural 
+module full_adder( input a , b,cin, output reg Sum , Cout);
+   always @(*) begin
+      Sum = a^b^cin;
+      Cout = (a&b) | ((a^b)& cin);
+    
+   end    
+   endmodule
+
+//  gate level 
+module full_adder(input a ,b,cin , output Sum , Cout);
+wire s1,w1,w2;
+    //sum logic
+     xor(s1 , a,b);
+     xor(Sum , s1,cin);
+     
+     //carry logic
+     and(w1 , s1,cin);
+     and(w2,a,b);
+     or(Cout ,w2,w1);
+
+     endmodule
+
+// structural modelling
+module full_adder(input a ,b,cin , output Sum , Cout);
+wire s1,w1,w2;
+    //sum logic
+    //instantiate xor primitive
+     xor  x1(s1 , a,b);
+     xor   x2(Sum , s1,cin);
+     
+     //carry logic
+     and  and1(w1 , s1,cin);
+     and  and2(w2,a,b);
+     or  u1(Cout ,w2,w1);
+
+endmodule
