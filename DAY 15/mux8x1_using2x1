@@ -1,0 +1,18 @@
+module mux2x1(input [1:0] a , input  sel , output y);
+assign y = sel?a[0] : a[1];
+endmodule
+
+module mux8x1(input [7:0] a , input [2:0] sel , output y);
+wire [5:0] w;
+
+//module mux2x1 instantiating
+//we require 7 2x1mux to make 8x1
+mux2x1  M1 (a[1:0] , sel[0] ,w[0]);
+mux2x1  M2 (a[3:2] , sel[0] ,w[1]);
+mux2x1  M3 (a[5:4] , sel[0] ,w[2]);
+mux2x1  M4 (a[7:6] , sel[0] ,w[3]);
+mux2x1  M5 (w[1:0] , sel[1] ,w[4]);
+mux2x1  M6 (w[3:2] , sel[1] ,w[5]);
+mux2x1  M7 (w[5:4] , sel[2] ,y);
+
+endmodule
