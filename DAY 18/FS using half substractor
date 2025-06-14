@@ -1,0 +1,19 @@
+module HS(input a , b ,output diff , borrow);
+   assign diff = a ^ b;
+   assign borrow = ~a & b;
+endmodule
+
+
+module FS(input A ,B ,C , output Diff , Borrow);
+wire b1,b2,w1;
+
+//instantiating half substractor 
+HS D1( A,B,w1,b1);
+HS D2(w1,C,Diff,b2);
+
+assign Borrow = b1 | b2;
+
+endmodule
+
+
+   
