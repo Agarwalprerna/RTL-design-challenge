@@ -1,0 +1,31 @@
+//decoder 3x8 using 2x4 decoder
+
+module decoder2x4( input [1:0] in , input E ,output [3:0] y);
+          and(y[0] ,E ,~in[1] , ~in[0]);
+and(y[1] ,E ,~in[0] , in[1]);
+and(y[2] ,E ,~in[1] , in[0]);
+and(y[3] ,E ,in[1] , in[0]);
+endmodule
+
+module dec3x8( input [1:0] in , input E , output [7:0] y);
+wire w1;
+not(w1,E);
+decoder2x4 D1(in[1:0] ,E,y[3:0]);
+decoder2x4 D2(in[1:0] ,w1,y[7:4]);
+endmodule
+
+//testbench
+module decoder3x8_tb;
+reg E;
+reg [1:0] in;
+wire [7:0] y;
+
+dec3x8 dut( in , E,y);
+initial begin
+
+ E =0 ; in=2'b01 ;#2;
+$display(" in =%d , E = %b ,y = %d", in,E,y);
+E = 1 ; in =2'b11 ; #2;
+$display(" in =%d , E = %b ,y = %d", in,E,y);
+end
+endmodule
