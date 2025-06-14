@@ -1,0 +1,22 @@
+module FS_tb;
+ 
+reg a ,b ,c;
+wire borrow , diff;
+integer i ;
+
+FS dut(a,b,c,diff , borrow);
+
+initial begin
+//testcases
+$display(" a b c | diff borrow ");
+for(integer i =0 ; i<5;i=i+1)begin
+a= $random();
+b= $random();
+c = $random();
+#5;
+$display( "  %b\t%b\t%b\t%b\t%b " ,a,b,c,diff,borrow);
+end
+$finish;
+
+end
+endmodule
