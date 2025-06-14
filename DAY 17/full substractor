@@ -1,0 +1,4 @@
+module FS( input A,B,C, output diff , borrow);
+   assign diff = A ^ B ^C;
+   assign borrow = (~A & B) | ( B & C) | ( C & ~A);
+endmodule
