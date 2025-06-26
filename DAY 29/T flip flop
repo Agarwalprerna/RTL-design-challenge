@@ -1,0 +1,52 @@
+module T_ff(input T , clk ,rst , output reg Q , Qbar);
+  always @(posedge clk) begin
+    if(rst)begin
+      Q<=0;
+    end
+    
+    else begin
+      case(T)
+        1'b0: Q <= Q;
+        1'b1: Q <= ~Q;
+        default : Q=0;
+      endcase
+    end
+  end
+endmodule
+
+
+//testbench
+module T_ff_tb;
+  reg T , clk,rst;
+  wire Q , Qbar;
+  
+  T_ff dut(T , clk,rst,Q,Qbar);
+  
+ always #5 clk = ~clk;
+  initial clk =0;
+
+  initial begin
+    $display("time\tT\tQ");
+    $dumpfile("T_ff.vcd");
+    $dumpvars(0, T_ff_tb);
+    
+    rst = 1;
+    #10;
+    rst =0;
+   
+    $display("%0t\t%b\t%b",$time , T,Q);
+    T = 1'b0;
+    #10;
+    $display("%0t\t%b\t%b",$time , T,Q);
+    T = 1'b1;
+    #10;
+//     rst = 1;
+//     #10;
+    $display("%0t\t%b\t%b",$time , T,Q);
+    T=1'b0;
+    #10;
+    
+    $display("%0t\t%b\t%b",$time , T,Q);
+    $finish;
+  end
+endmodule
