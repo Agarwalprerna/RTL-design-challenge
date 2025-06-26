@@ -1,0 +1,53 @@
+module SR_ff( input S , R ,clk ,rst , output reg Q ,Qbar);
+  always @(posedge clk) begin
+    
+    if(rst) begin
+      Q <= 0 ;
+      Qbar <=1;
+    end
+    
+    else begin
+      case({S,R})
+        2'b00: {Q , Qbar} <= {Q , Qbar};
+        2'b01: {Q , Qbar} <= {1'b0 , 1'b1};
+        2'b10: {Q , Qbar} <= {1'b1 , 1'b0};
+        2'b11: {Q , Qbar} <= {1'bx , 1'bx};
+        default : begin end
+      endcase
+    end
+      
+    end
+    endmodule
+
+
+//testbench
+module SR_ff_tb;
+  reg S , R, clk ,rst;
+  wire Q , Qbar;
+  
+  SR_ff dut (S,R,clk,rst,Q , Qbar);
+   always #5 clk = ~ clk;
+   initial clk = 0;
+  initial begin
+    $dumpfile("SR_ff.vcd");
+    $dumpvars(0,SR_ff_tb);
+    $display("time\tS\tR\tQ\tQbar");
+    rst =1 ;
+    #10;
+    rst = 0;
+    {S,R} = 2'b00;
+    #10;
+    $display("%0t\t%b\t%b\t%b\t%b",$time , S ,R,Q,Qbar);
+    {S,R} = 2'b01;
+    #10;
+    $display("%0t\t%b\t%b\t%b\t%b",$time , S ,R,Q,Qbar);
+    {S,R} = 2'b10;
+    #10;
+    $display("%0t\t%b\t%b\t%b\t%b",$time , S ,R,Q,Qbar);
+    {S,R} = 2'b11;
+    #10;
+    $display("%0t\t%b\t%b\t%b\t%b",$time , S ,R,Q,Qbar);
+    
+    $finish;
+  end
+endmodule
