@@ -1,0 +1,43 @@
+module down_counter(input clk,rst,output reg [3:0] cnt);
+  always @(posedge clk) begin
+    if(rst) begin
+      cnt<=4'b1111;
+    end
+    else begin
+      cnt<= cnt-1;
+    end
+  end
+  
+    endmodule
+
+//testbench
+
+
+module down_counter_tb;
+  reg clk ,rst;
+  wire [3:0] cnt;
+  
+  down_counter dut( clk ,rst, cnt);
+  
+ always #5 clk = ~clk;
+  initial clk = 0;
+  
+  initial begin
+      $dumpfile("down_counter.vcd");
+  $dumpvars(0 , down_counter_tb);
+    $display("clk\trst\tcnt");
+    
+    rst =1;
+    #10;
+    $display("%b\t%b\t%d",clk,rst,cnt);
+    
+    for(integer i =0 ; i<16 ; i=i+1)begin
+      rst = 0;
+      #10;
+      $display("%b\t%b\t%d",clk,rst,cnt);
+    end
+     $finish;
+  end
+ 
+
+endmodule
