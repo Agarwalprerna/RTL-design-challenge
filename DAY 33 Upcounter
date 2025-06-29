@@ -1,0 +1,41 @@
+
+module upcounter(input clk , rst , output reg [4:0] cnt );
+
+always @(posedge clk)begin
+if(rst)
+cnt <= 5'b0;
+else begin
+cnt <= cnt+1;
+end
+end
+
+endmodule
+
+//testbench
+module upcounter_tb;
+reg clk, rst;
+  wire [4:0] cnt;    //count bit = 5 bit 
+
+upcounter dut( clk,rst,cnt);
+always #5 clk=~clk;
+initial clk =0;
+  
+initial begin
+  $display("time\tclk\trst\tcount");
+  $dumpfile("upcounter.vcd");
+  $dumpvars(0,upcounter_tb);
+rst = 1;
+#6;
+$display("%0t\t%b\t%b\t%b" , $time , clk ,rst,cnt);
+
+  
+  //fixed coount value =15 
+for(integer i =0; i<15 ; i=i+1) begin
+rst =0;
+#6;
+$display("%0t\t%b\t%b\t%b" , $time , clk ,rst,cnt);
+end
+
+end
+endmodule
+
