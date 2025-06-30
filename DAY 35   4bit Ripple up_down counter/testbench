@@ -1,0 +1,42 @@
+
+
+module asyn_cnt #(parameter N = 4)( input clk ,rst_n , j ,k ,up , output [N-1:0] q ,qbar);
+  wire [N-2:0] nextclk;
+  genvar g;
+  
+  JK_ff jk0 (j ,k, clk , rst_n , q[0] , qbar[0]);
+  generate
+    for(g=1; g<=N-1 ; g++)begin
+      updown_selector ud1( q[g-1] , qbar[g-1] , up ,nextclk[g-1]);
+      JK_ff jk1 (j ,k ,nextclk[g-1] , rst_n ,q[g] , qbar[g]);
+    end
+  endgenerate
+endmodule
+
+  
+  
+  
+  module JK_ff( input J , K ,clk ,rst , output reg Q ,Qbar);
+  always @(posedge clk) begin
+    
+    if(rst) begin
+      Q <= 0 ;
+      Qbar <=1;
+    end
+    
+    else begin
+      case({J,K})
+        2'b00: {Q , Qbar} <= {Q , Qbar};
+        2'b01: {Q , Qbar} <= {1'b0 , 1'b1};
+        2'b10: {Q , Qbar} <= {1'b1 , 1'b0};
+        2'b11: {Q , Qbar} <= {Qbar , Q};
+        default : begin end
+      endcase
+    end
+      
+    end
+    endmodule
+
+module updown_selector ( input q , qbar, up , output nextclk);
+  assign nextclk = up?qbar:q;
+endmodule
