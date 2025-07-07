@@ -1,0 +1,13 @@
+module ringcnt( input clk , rst, output  [3:0] q);
+  reg [3:0] in;    //in is not defined as a port 
+  
+  always @(posedge clk) begin
+    if(rst)
+      in <= 4'b0001;
+    else begin
+      in <= in<<1;
+      in[0]<= in[3];
+    end
+  end
+  assign q =in;
+endmodule
