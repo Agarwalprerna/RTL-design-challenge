@@ -1,0 +1,19 @@
+module johnson_tb;
+  reg clk ,rst;
+
+  wire [3:0] q;
+  
+  johnson dut(clk , rst,q);
+  
+  always #1 clk = ~clk ;
+  initial clk =0;
+  
+  initial begin
+    $dumpfile("johnson.vcd");
+    $dumpvars(0 , johnson_tb);
+    rst =1;
+    #2;
+    rst =0;
+    $finish;
+  end
+endmodule
