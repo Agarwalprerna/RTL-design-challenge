@@ -1,0 +1,12 @@
+module johnson( input clk , rst, output  [3:0] q);
+  reg [3:0] in;    //in is not defined as a port 
+  
+  always @(posedge clk) begin
+    if(rst)
+      in <= 4'b1000;
+    else begin
+      in <= {~in[0] , in[3:1]};
+    end
+  end
+  assign q =in;
+endmodule
