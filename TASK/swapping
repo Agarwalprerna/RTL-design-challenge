@@ -1,0 +1,27 @@
+//task to swap 2 numbers
+
+module tb;
+  reg [2:0] a ,b;
+  
+  
+  task swap;
+    inout [2:0] x ,y;
+    reg [2:0] temp;
+    begin
+      temp =x;
+      x =y;
+      y = temp;
+    end
+  endtask
+  
+  initial begin
+    a = 3'd4;
+    b = 3'd5;
+    $display("before swap -> a = %0d , b=%0d" , a,b);
+    
+    swap(a,b);
+    $display("after swap -> a = %0d , b=%0d" , a,b);
+    
+    $finish;
+  end
+endmodule
