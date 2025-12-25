@@ -1,0 +1,26 @@
+module example;
+  
+  reg [3:0] a ,b;
+  
+  
+task compare;
+  input [3:0] x ,y;
+  begin
+    if(x>y)
+      $display("x is greator than y");
+    else if(x==y)
+      $display("y is equal to x");
+    else
+      $display("y is greator than x");
+  end
+endtask
+      
+   initial begin
+        a = 4'd9;
+        b = 4'd7;
+        compare(a ,b);
+     $finish;
+   end
+endmodule
+    
+      
