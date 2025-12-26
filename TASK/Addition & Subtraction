@@ -1,0 +1,23 @@
+module tb;
+  
+  reg [3:0] x ,y;
+  reg [3:0] z ,w;
+  
+
+  
+  task arithmetic;
+    input [3:0] a ,b;
+    output [3:0] sum , diff;
+    begin
+      sum = a+ b;
+      diff = a-b;
+      $display("sum = %0d , Diff = %0d" , sum , diff);
+    end
+  endtask
+  
+initial begin
+  x = 4'd6;
+  y = 4'd9;
+  arithmetic(x,y,z,w);
+end
+endmodule
