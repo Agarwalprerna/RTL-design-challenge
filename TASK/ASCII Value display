@@ -1,0 +1,19 @@
+module tb;
+  reg [7:0] a;
+  
+ 
+//task to print an ASCII value
+  task ascii_val;
+    input [7:0] ch;
+    begin
+      $display("ASCII: %0d" , ch);
+    end
+  endtask
+  
+initial begin
+  a = "b";
+  ascii_val(a);
+end
+  
+endmodule
+
