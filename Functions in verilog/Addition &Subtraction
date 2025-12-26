@@ -1,0 +1,28 @@
+module tb;
+  reg [3:0] x,y ;  //input
+  reg [3:0] w ,z; //output
+  
+  function [3:0] add;
+    input [3:0] a ,b;
+    begin
+      add = a+b;
+    end
+  endfunction
+  
+  function [3:0] sub;
+    input [3:0] a,b;
+    begin
+      sub = a-b;
+    end
+  endfunction
+  
+  initial begin
+    x = 4'd6;
+    y = 4'd9;
+    
+    w = add(x,y);
+    z = sub(x,y);
+    
+    $display("sum = %0d , diff = %0d" , w,z);
+  end
+endmodule
