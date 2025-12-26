@@ -1,0 +1,28 @@
+module tb;
+  reg [2:0] a ,b;
+  
+  
+  task automatic swap;
+    inout [2:0] x ,y;
+    reg [2:0] temp;
+    begin
+      $display("before swap -> a = %0d , b=%0d" , x,y);
+      temp =x;
+      x =y;
+      y = temp;
+      #10;
+      $display("after swap -> a = %0d , b=%0d" , x,y);
+      
+    end
+  endtask
+  
+  initial begin
+    a = 3'd4;
+    b = 3'd5;
+  
+    swap(a,b);
+    swap(a,b);
+    swap(a,b);
+  
+  end
+endmodule
