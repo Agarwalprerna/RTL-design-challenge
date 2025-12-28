@@ -1,0 +1,41 @@
+module tb;
+  
+   integer n;  // input as number
+    integer result;  //for return value
+  
+  function integer palindrome;
+    input integer num;
+    integer remainder , rev , temp_num;
+    begin
+      temp_num = num;
+      rev =0;
+      
+      while(temp_num!=0) begin           //dont take input num to be changed therefore temp_num
+        remainder = temp_num%10;
+        rev = rev*10 + remainder;
+        temp_num = temp_num/10;
+      end
+      
+      if( rev== num) begin
+        palindrome = 1;
+        //$display("yes it is palindrome" );  #will not print , must be diplayed outside function
+      end
+      else 
+        palindrome = 0;
+      
+    end
+  endfunction
+  
+  initial begin
+    n = 3333;
+    result = palindrome(n);
+    if(result==1)
+      $display("yes %0d is palindrome" , n);
+    else
+      $display("%0d is not palindrome" , n);
+      
+  end
+  
+  
+  
+endmodule
