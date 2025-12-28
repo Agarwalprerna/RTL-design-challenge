@@ -1,0 +1,26 @@
+module tb;
+  
+  integer range;   
+
+  task automatic fib;
+    input integer n;
+    integer first , second , next ,i;
+    begin
+      first = 0;
+      second = 1;
+      for(i=0;i<n;i=i+1)begin
+        $display("%0d" ,first);  //updated value will be printed
+        next = first+second;
+        first = second;
+        second = next;
+        
+      end
+    end
+  endtask
+  
+  
+  initial begin
+    range =5;
+    fib(range);
+  end
+endmodule
